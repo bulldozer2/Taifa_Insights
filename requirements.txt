@@ -1,0 +1,8 @@
+Django>=5.0,<5.5
+djangorestframework>=3.15
+mysqlclient>=2.1
+# If mysqlclient installation is problematic, use PyMySQL and adjust settings
+# PyMySQL>=1.0
+pandas>=2.0
+python-dotenv>=1.0
+gunicorn>=22.0

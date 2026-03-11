@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}{{ insight.title }}{% endblock %}
+{% block content %}
+<h1>{{ insight.title }}</h1>
+<p><small>Published on {{ insight.created_at }}</small></p>
+<div>{{ insight.content|linebreaks }}</div>
+<a href="/insights/" class="btn btn-secondary mt-3">Back to Insights</a>
+{% endblock %}

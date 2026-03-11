@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Dashboards{% endblock %}
+{% block content %}
+<h1>Dashboards</h1>
+<p>Choose an indicator category for charts:</p>
+<ul>
+  {% for slug in categories %}
+    <li><a href="/dashboards/{{ slug }}/">{{ slug|title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

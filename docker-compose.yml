@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: taifa_insights
+      MYSQL_USER: taifa_user
+      MYSQL_PASSWORD: taifa_pass
+      MYSQL_ROOT_PASSWORD: root_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  web:
+    build: .
+    command: gunicorn taifa_insights.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_DEBUG: '1'
+      DJANGO_SECRET_KEY: 'replace-me-with-secure-key'
+      MYSQL_DATABASE: taifa_insights
+      MYSQL_USER: taifa_user
+      MYSQL_PASSWORD: taifa_pass
+      MYSQL_HOST: mysql
+      MYSQL_PORT: '3306'
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+  static_volume:
+  media_volume:

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard: {{ indicator.name }}{% endblock %}
+{% block content %}
+<h1>Dashboard: {{ indicator.name }}</h1>
+<canvas id="indicatorChart" width="800" height="400"></canvas>
+{% endblock %}
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+fetch('/dashboards/{{ indicator.name|slugify }}/data/')
+  .then(r => r.json())
+  .then(json => {
+    const ctx = document.getElementById('indicatorChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: json.labels,
+        datasets: [{
+          label: '{{ indicator.name }}',
+          data: json.values,
+          borderColor: 'rgba(54, 162, 235, 1)',
+          tension: 0.2,
+        }]
+      }
+    });
+  });
+</script>
+{% endblock %}

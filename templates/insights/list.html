@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Insights{% endblock %}
+{% block content %}
+<h1>Insights</h1>
+{% if insights %}
+<ul class="list-group">
+    {% for insight in insights %}
+    <li class="list-group-item">
+        <a href="/insights/{{ insight.slug }}/">{{ insight.title }}</a>
+        <p>{{ insight.summary }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No published insights yet.</p>
+{% endif %}
+{% endblock %}
